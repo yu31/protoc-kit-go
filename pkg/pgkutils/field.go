@@ -50,13 +50,13 @@ func FieldGoType(g *protogen.GeneratedFile, field *protogen.Field) (goType strin
 	return goType
 }
 
-// FieldIsOneOf check the field is oneof
+// FieldIsOneOf represents whether the field type is `oneof`
 func FieldIsOneOf(field *protogen.Field) bool {
 	return field.Oneof != nil && !field.Oneof.Desc.IsSynthetic()
 }
 
-// FieldIsPointer check the field is pointer
-func FieldIsPointer(field *protogen.Field) bool {
+// FieldIsOptional represents whether the field has qualifier modifier `optional`.
+func FieldIsOptional(field *protogen.Field) bool {
 	if field.Desc.IsMap() {
 		return false
 	}
@@ -77,7 +77,7 @@ func FieldIsPointer(field *protogen.Field) bool {
 	return field.Desc.HasPresence()
 }
 
-// FieldContainMessage check whether the field contains data of type `message`.
+// FieldContainMessage represents whether the field contains a data of type `message`.
 func FieldContainMessage(field *protogen.Field) bool {
 	if field.Desc.IsList() && field.Desc.Kind() == protoreflect.MessageKind {
 		return true
@@ -120,7 +120,7 @@ func FieldGoName(field *protogen.Field, inOneOf bool) string {
 	return name
 }
 
-// LoadFieldList return valid fields list in message.
+// LoadFieldList returns valid fields list in message.
 func LoadFieldList(message *protogen.Message) []*protogen.Field {
 	fields := make([]*protogen.Field, 0)
 	for _, field := range message.Fields {
