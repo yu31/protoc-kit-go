@@ -120,8 +120,8 @@ func FieldGoName(field *protogen.Field, inOneOf bool) string {
 	return name
 }
 
-// LoadFieldList returns valid fields list in message.
-func LoadFieldList(message *protogen.Message) []*protogen.Field {
+// LoadFieldLists returns valid fields list in message.
+func LoadFieldLists(message *protogen.Message) []*protogen.Field {
 	fields := make([]*protogen.Field, 0)
 	for _, field := range message.Fields {
 		if FieldIsOneOf(field) && field.Oneof.Fields[0] != field {
