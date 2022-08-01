@@ -1,11 +1,11 @@
-package pgkparser
+package pgkmessage
 
 import (
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
-// Message for parser the protogen.Message
-type Message struct {
+// Parser for parser the protogen.Message
+type Parser struct {
 	// The proto message.
 	message *protogen.Message
 
@@ -19,15 +19,15 @@ type Message struct {
 	fields []*protogen.Field
 }
 
-func NewMessage(message *protogen.Message) *Message {
-	x := &Message{
+func NewParser(message *protogen.Message) *Parser {
+	x := &Parser{
 		message: message,
 	}
 	x.init()
 	return x
 }
 
-func (x *Message) init() {
+func (x *Parser) init() {
 	message := x.message
 	nLen := len(message.Fields)
 
@@ -59,12 +59,12 @@ func (x *Message) init() {
 }
 
 // Fields returns all fields except those in "oneof".
-func (x *Message) Fields() []*protogen.Field {
+func (x *Parser) Fields() []*protogen.Field {
 	return x.fields
 }
 
 // LookupByName get the field by name. returns nil if not found.
-func (x *Message) LookupByName(name string) (field *protogen.Field, inOneOf bool) {
+func (x *Parser) LookupByName(name string) (field *protogen.Field, inOneOf bool) {
 	var ok bool
 	if field, ok = x.plainMap[name]; ok {
 		return
