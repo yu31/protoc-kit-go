@@ -9,7 +9,7 @@ import (
 	"google.golang.org/protobuf/types/pluginpb"
 )
 
-func Do(plugin Plugin) {
+func Run(plugin Plugin) {
 	if plugin.Name() == "" {
 		panic("plugin name not sets.")
 	}
@@ -34,7 +34,8 @@ func Do(plugin Plugin) {
 			if !file.Generate {
 				continue
 			}
-			if !plugin.Init(file) {
+
+			if !plugin.Init(pp, file) {
 				continue
 			}
 
