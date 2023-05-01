@@ -4,7 +4,8 @@ import (
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
-// Parser for parser the protogen.Message
+// Parser for parse the protogen.Message
+// TODO: make it as a standalone package?
 type Parser struct {
 	// The proto message.
 	message *protogen.Message

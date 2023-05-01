@@ -1,4 +1,4 @@
-package pgkutils
+package pgkfield
 
 import (
 	"fmt"
@@ -94,7 +94,7 @@ func FieldContainMessage(field *protogen.Field) bool {
 	return false
 }
 
-// FieldProtoName returns the field name that you declares in proto file.
+// FieldProtoName returns the field name that you declare in proto file.
 func FieldProtoName(field *protogen.Field, inOneOf bool) string {
 	var name string
 
@@ -118,16 +118,4 @@ func FieldGoName(field *protogen.Field, inOneOf bool) string {
 		name = field.GoName
 	}
 	return name
-}
-
-// LoadFieldLists returns valid fields list in message.
-func LoadFieldLists(message *protogen.Message) []*protogen.Field {
-	fields := make([]*protogen.Field, 0)
-	for _, field := range message.Fields {
-		if FieldIsOneOf(field) && field.Oneof.Fields[0] != field {
-			continue // only generate for first appearance
-		}
-		fields = append(fields, field)
-	}
-	return fields
 }
