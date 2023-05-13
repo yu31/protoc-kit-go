@@ -1,5 +1,10 @@
 package pgkwkt
 
+import (
+	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/reflect/protoreflect"
+)
+
 // WKT (Well Known Type) encapsulates the Name of a Parser from the `google.protobuf` package.
 // Most official protoc plugins special case code generation on these messages.
 type WKT string
@@ -7,7 +12,7 @@ type WKT string
 // Name converts the Type to a Name. This is a convenience method.
 func (wkt WKT) Name() string { return string(wkt) }
 
-// Valid returns true if the Type is recognized by this library.
+// Valid returns true if the WKT is recognized by this package.
 func (wkt WKT) Valid() bool {
 	_, ok := wktLookup[wkt.Name()]
 	return ok
@@ -67,4 +72,17 @@ func Lookup(name string) WKT {
 		return mkt
 	}
 	return Unknown
+}
+
+// Valid returns true if the field is contains in this package.
+// Notice: We also return true (Due to inability to make judgments?) if the field type is `oneof` and it is the parent of 'oneof'.
+func Valid(field *protogen.Field) bool {
+	var msgName string
+	switch {
+	case field.Desc.IsMap() && field.Desc.MapValue().Kind() == protoreflect.MessageKind:
+		msgName = string(field.Message.Fields[1].Message.Desc.FullName())
+	case !field.Desc.IsMap() && field.Desc.Kind() == protoreflect.MessageKind:
+		msgName = string(field.Message.Desc.FullName())
+	}
+	return Lookup(msgName).Valid()
 }
