@@ -1,41 +1,41 @@
 package pgkbuffer
 
 import (
-	"unsafe"
+	"bytes"
 )
 
 type Buffer struct {
-	buf []byte
+	BB bytes.Buffer
 }
 
 // New returns a new Buffer with default cap.
 func New() *Buffer {
-	return &Buffer{buf: make([]byte, 0, 64)}
+	return &Buffer{BB: bytes.Buffer{}}
 }
 
 func (x *Buffer) IsEmpty() bool {
-	return x == nil || len(x.buf) == 0
+	return x == nil || x.BB.Len() == 0
 }
 
 func (x *Buffer) WriteStringLn(ss ...string) {
 	x.WriteString(ss...)
-	x.buf = append(x.buf, '\n')
+	_ = x.BB.WriteByte('\n')
 }
 
 func (x *Buffer) WriteString(ss ...string) {
 	for _, s := range ss {
-		x.buf = append(x.buf, s...)
+		_, _ = x.BB.WriteString(s)
 	}
 }
 
 func (x *Buffer) WriteBytesLn(vv ...[]byte) {
 	x.WriteBytes(vv...)
-	x.buf = append(x.buf, '\n')
+	_ = x.BB.WriteByte('\n')
 }
 
 func (x *Buffer) WriteBytes(vv ...[]byte) {
 	for _, v := range vv {
-		x.buf = append(x.buf, v...)
+		_, _ = x.BB.Write(v)
 	}
 }
 
@@ -43,12 +43,12 @@ func (x *Buffer) Bytes() []byte {
 	if x == nil {
 		return nil
 	}
-	return x.buf
+	return x.BB.Bytes()
 }
 
 func (x *Buffer) String() string {
 	if x == nil {
 		return ""
 	}
-	return *(*string)(unsafe.Pointer(&x.buf))
+	return x.BB.String()
 }
