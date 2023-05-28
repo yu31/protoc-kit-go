@@ -1,2 +1,2 @@
-# protoc-go-kit
-protoc-go-kit(PGK) is a utils kit for supported protoc plugin 
+# protoc-kit-go
+protoc-kit-go(PK) is an utils kit for supported protoc plugin 

@@ -1,4 +1,4 @@
-module github.com/yu31/protoc-go-kit
+module github.com/yu31/protoc-kit-go
 
 go 1.17
 

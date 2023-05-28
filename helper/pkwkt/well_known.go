@@ -1,4 +1,4 @@
-package pgkwkt
+package pkwkt
 
 import (
 	"google.golang.org/protobuf/compiler/protogen"

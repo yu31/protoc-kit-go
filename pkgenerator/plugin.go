@@ -1,4 +1,4 @@
-package pgkgenerator
+package pkgenerator
 
 import "google.golang.org/protobuf/compiler/protogen"
 

@@ -1,4 +1,4 @@
-package pgkerror
+package pkerror
 
 import "fmt"
 

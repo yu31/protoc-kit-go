@@ -1,4 +1,4 @@
-package pgkident
+package pkident
 
 import (
 	"strconv"

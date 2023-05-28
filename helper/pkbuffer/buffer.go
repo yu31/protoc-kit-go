@@ -1,4 +1,4 @@
-package pgkbuffer
+package pkbuffer
 
 import (
 	"bytes"

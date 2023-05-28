@@ -1,4 +1,4 @@
-package pgkmessage
+package pkmessage
 
 import (
 	"google.golang.org/protobuf/compiler/protogen"

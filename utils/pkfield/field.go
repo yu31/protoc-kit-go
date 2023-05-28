@@ -1,4 +1,4 @@
-package pgkfield
+package pkfield
 
 import (
 	"fmt"

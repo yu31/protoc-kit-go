@@ -1,4 +1,4 @@
-package pgkgenerator
+package pkgenerator
 
 import (
 	"fmt"
