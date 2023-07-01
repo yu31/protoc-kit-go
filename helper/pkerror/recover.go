@@ -25,12 +25,12 @@ func Recover(pluginName string, file *protogen.File, message *protogen.Message, 
 			}
 
 			id := fmt.Sprintf(
-				"%s: { file: %s | message: %s | field: %s }",
+				"[plugin: %s] - [file: %s | message: %s | field: %s]",
 				pluginName, file.Desc.Path(), msgName, fieldName,
 			)
 
 			if e, ok := r.(*Error); ok {
-				println(fmt.Sprintf("ERROR - %s - %s", id, e.Error()))
+				println(fmt.Sprintf("[ERROR] - %s - %s", id, e.Error()))
 				return
 			}
 
